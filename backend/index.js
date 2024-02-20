@@ -19,8 +19,11 @@ let db
 
 
 
-app.get('/products', function (req, res) {
-  res.status(300).send('Hello World')
+app.get('/products', async (req, res) => {
+
+    const product = await db.all("Select * from products")
+
+    res.status(300).json({product})
 })
 
 app.get('/init-products', async (req, res) => {
@@ -43,8 +46,7 @@ app.get('/init-products', async (req, res) => {
                 await db.run('INSERT INTO `products` (name,price) VALUES (?,?)', 
                 product_item.name, 
                 product_item.price)
-            }
-        
+            }    
         res.status(200).json({message: 'Data executed'})
     } catch (error) {
         res.status(500).send(error)
