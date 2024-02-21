@@ -4,7 +4,7 @@ const app = express()
 
 const sqlite3 = require('sqlite3')
 const { open } = require('sqlite')
-
+const { v4: uuidv4 } = require('uuid');
 
 let db 
 // this is a top-level await 
@@ -53,6 +53,33 @@ app.get('/init-products', async (req, res) => {
     }
  
   })
+
+
+  app.get('/insert-products', async (req, res) => {
+    // req.query
+    try {
+
+        // let objme = [
+        //     {
+        //      name: req.query.name, 
+        //      price: req.query.price, 
+        //      uuid: uuidv4() 
+        //     }]
+
+
+          await db.run('INSERT INTO `products` (UUID,name,price) VALUES (?,?,?)', 
+          uuidv4(), 
+          req.query.name, 
+          req.query.price
+          )
+
+        res.status(200).json(req.query)
+    } catch (error) {
+        res.status(500).send(error)
+    }
+ 
+  })
+
 
 
 app.listen(3000)
