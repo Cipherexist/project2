@@ -23,7 +23,8 @@ app.get('/products', async (req, res) => {
 
     const product = await db.all("Select * from products")
 
-    res.status(300).json({product})
+    const myproduct = res.status(300).json({product})
+    console.log("PRODUCT", myproduct)
 })
 
 app.get('/init-products', async (req, res) => {

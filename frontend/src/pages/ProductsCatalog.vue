@@ -231,9 +231,10 @@ const fakecart = inject("fakestoreapi")
 
 const store = inject("$store")
 
+const dbstore = inject("$productlist")
 
 
-
+console.log("DBSTORE ", dbstore)
 onMounted(async ()=>
 {
   const result = await fakecart.get("/products")
